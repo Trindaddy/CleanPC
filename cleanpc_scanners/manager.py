@@ -12,6 +12,9 @@ from cleanpc_core.config import MAX_PARALLEL_WORKERS
 from cleanpc_core.models import Finding, RiskLevel, ScanCategory
 from .base import BaseScanner
 from .browser_cache import BrowserCacheScanner
+from .gpu_shaders import GpuShadersScanner
+from .app_caches import AppCachesScanner
+from .windows_logs import WindowsLogsScanner
 from .dev_caches import DevCachesScanner
 from .duplicates import DuplicateFilesScanner
 from .error_dumps import ErrorDumpsScanner
@@ -41,6 +44,9 @@ class ScannerManager:
         self.scanners: List[BaseScanner] = [
             TempFilesScanner(),
             BrowserCacheScanner(),
+            GpuShadersScanner(),
+            AppCachesScanner(),
+            WindowsLogsScanner(),
             RecycleBinScanner(),
             ErrorDumpsScanner(),
             DevCachesScanner(),

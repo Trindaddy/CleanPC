@@ -49,6 +49,36 @@ class RiskClassifier:
         )
 
     @staticmethod
+    def classify_gpu_shader_cache(gpu_vendor: str, cache_name: str) -> Tuple[RiskLevel, str]:
+        """
+        Classifica caches de shaders de placas de vídeo (NVIDIA, AMD, DirectX, Intel).
+        """
+        return (
+            RiskLevel.SAFE,
+            f"Cache de shaders pré-compilados ({gpu_vendor} - {cache_name}). A GPU recriará novos shaders automaticamente quando necessário para jogos e renderizações."
+        )
+
+    @staticmethod
+    def classify_app_cache(app_name: str, cache_type: str) -> Tuple[RiskLevel, str]:
+        """
+        Classifica caches de grandes aplicativos (Discord, Spotify, Steam, Epic Games).
+        """
+        return (
+            RiskLevel.SAFE,
+            f"Cache de imagens, mídia e renderização do {app_name} ({cache_type}). Não desloga nem remove dados de contas."
+        )
+
+    @staticmethod
+    def classify_windows_log(log_type: str, last_modified: Optional[datetime]) -> Tuple[RiskLevel, str]:
+        """
+        Classifica logs de auditoria e atualizações antigas do Windows (CBS, DISM).
+        """
+        return (
+            RiskLevel.SAFE,
+            f"Arquivo de log histórico do sistema/atualização ({log_type}). Seguro para remoção para liberação de espaço."
+        )
+
+    @staticmethod
     def classify_dev_cache(tool_name: str, size_bytes: int) -> Tuple[RiskLevel, str]:
         """
         Classifica caches de ferramentas de desenvolvimento (npm, pip, docker, gradle).

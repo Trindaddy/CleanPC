@@ -39,6 +39,9 @@ class RiskLevel(str, Enum):
 class ScanCategory(str, Enum):
     TEMP_FILES = "temp_files"
     BROWSER_CACHE = "browser_cache"
+    GPU_SHADERS = "gpu_shaders"
+    APP_CACHES = "app_caches"
+    WINDOWS_LOGS = "windows_logs"
     RECYCLE_BIN = "recycle_bin"
     ERROR_DUMPS = "error_dumps"
     DEV_CACHES = "dev_caches"
@@ -54,6 +57,9 @@ class ScanCategory(str, Enum):
         names = {
             "temp_files": "Arquivos Temporários",
             "browser_cache": "Cache de Navegadores",
+            "gpu_shaders": "Cache de Shaders de GPU (NVIDIA / AMD / DirectX)",
+            "app_caches": "Caches de Apps (Discord / Spotify / Steam / Epic)",
+            "windows_logs": "Logs e Histórico do Windows Update (CBS / DISM)",
             "recycle_bin": "Lixeira do Windows",
             "error_dumps": "Dumps e Relatórios de Erro",
             "dev_caches": "Caches de Desenvolvimento (npm/pip/gradle/docker)",

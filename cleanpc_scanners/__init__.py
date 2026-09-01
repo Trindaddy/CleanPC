@@ -6,6 +6,9 @@ from .base import BaseScanner
 from .manager import ScannerManager, ScanSummary
 from .temp_files import TempFilesScanner
 from .browser_cache import BrowserCacheScanner
+from .gpu_shaders import GpuShadersScanner
+from .app_caches import AppCachesScanner
+from .windows_logs import WindowsLogsScanner
 from .recycle_bin import RecycleBinScanner
 from .error_dumps import ErrorDumpsScanner
 from .dev_caches import DevCachesScanner
@@ -20,6 +23,9 @@ __all__ = [
     "ScanSummary",
     "TempFilesScanner",
     "BrowserCacheScanner",
+    "GpuShadersScanner",
+    "AppCachesScanner",
+    "WindowsLogsScanner",
     "RecycleBinScanner",
     "ErrorDumpsScanner",
     "DevCachesScanner",

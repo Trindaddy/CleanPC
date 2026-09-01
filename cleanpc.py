@@ -30,6 +30,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Mega Limpador & Otimizador de PC — Ferramenta de Sistema Segura e Reversível"
     )
+    parser.add_argument("--gui", action="store_true", help="Inicia a interface gráfica desktop moderna (Padrão ao dar 2 cliques)")
+    parser.add_argument("--cli", action="store_true", help="Inicia o menu interativo no terminal / CLI")
     parser.add_argument("--scan", action="store_true", help="Executa varredura completa imediatamente")
     parser.add_argument("--safe-only", action="store_true", help="Executa apenas varredura de baixo risco (Safe)")
     parser.add_argument("--orphans-only", action="store_true", help="Executa apenas busca por pastas órfãs de programas")
@@ -41,12 +43,23 @@ def main():
 
     cli = CleanPcCLI()
 
-    # Se nenhum argumento de linha de comando foi passado, abre o menu interativo
-    if len(sys.argv) == 1:
+    # Se nenhum argumento foi passado ou se --gui foi especificado, tenta abrir a Interface Gráfica
+    if len(sys.argv) == 1 or args.gui:
+        try:
+            from cleanpc_ui.gui_window import launch_gui
+            launch_gui()
+            return
+        except Exception as e:
+            print(f"Não foi possível iniciar a GUI desktop ({e}). Iniciando modo CLI...\n")
+            cli.run_interactive()
+            return
+
+    # Se o usuário pediu explicitamente o modo CLI interativo
+    if args.cli:
         cli.run_interactive()
         return
 
-    # Trata argumentos CLI
+    # Trata argumentos CLI diretos
     if args.quarantine_list:
         cli.handle_quarantine_management()
         return
@@ -68,6 +81,9 @@ def main():
             categories = [
                 ScanCategory.TEMP_FILES,
                 ScanCategory.BROWSER_CACHE,
+                ScanCategory.GPU_SHADERS,
+                ScanCategory.APP_CACHES,
+                ScanCategory.WINDOWS_LOGS,
                 ScanCategory.ERROR_DUMPS,
                 ScanCategory.DEV_CACHES,
                 ScanCategory.THUMBNAILS
