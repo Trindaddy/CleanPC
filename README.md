@@ -6,19 +6,22 @@
 
 ## ⚡ Como Baixar e Usar (Para Usuários & Amigos)
 
-### 🥇 Opção 1: Baixar o Executável Direto (.exe) — **Não precisa de Python!**
-Se você quer apenas usar o programa sem instalar nada no computador:
-1. Acesse a página de **[Releases no GitHub](https://github.com/Trindaddy/CleanPC/releases)**.
-2. Baixe o arquivo **`CleanPC.exe`**.
-3. Dê **dois cliques** no `CleanPC.exe` para abrir a Interface Gráfica moderna!
+### 🥇 Opção 1: Baixar os Pacotes Prontos (Sem precisar de Python!)
 
-*(Dica: Para permitir limpeza completa de logs do Windows e reotimização de SSD via TRIM, execute como Administrador clicando com o botão direito -> "Executar como Administrador")*.
+Acesse a página de **[Releases no GitHub](https://github.com/Trindaddy/CleanPC/releases)** e escolha:
+
+* **📦 Pacote Portátil `.ZIP` (Recomendado — Evita falsos alertas de antivírus):**  
+  Baixe o **`CleanPC-v1.0.0-Portable.zip`**, descompacte onde preferir e clique em **`CleanPC.exe`**.
+* **🚀 Executável Único `.EXE`:**  
+  Baixe o **`CleanPC.exe`** direto e dê dois cliques.
+
+> ℹ️ **Nota sobre o Windows SmartScreen / Antivírus (Falso Positivo):**  
+> Como este é um projeto open-source novo e sem certificado digital pago da Microsoft (certificados EV comerciais custam centenas de dólares anuais), o Windows SmartScreen pode exibir a mensagem *"O Windows protegeu o seu computador"*.  
+> **Não há perigo:** o código é 100% aberto, transparente e pode ser auditado aqui no repositório. Para abrir, basta clicar em **"Mais informações"** ➡️ **"Executar assim mesmo"** (ou usar o pacote `.ZIP` / `iniciar.bat`).
 
 ---
 
 ### 🥈 Opção 2: Executar pelo Código-Fonte (Para Desenvolvedores)
-
-Se você clonou o repositório ou quer rodar via código:
 
 #### Método Rápido (1 Clique):
 Basta dar dois cliques no arquivo **`iniciar.bat`**. Ele cria o ambiente virtual, instala as dependências e abre o CleanPC automaticamente!
@@ -47,7 +50,7 @@ python cleanpc.py --cli
 
 ## 💡 Por que o CleanPC é diferente dos outros limpadores?
 
-A maioria dos utilitários de PC tradicionais funciona como uma "caixa preta": apagam arquivos sem explicar o motivo e muitas vezes quebram o sistema ou apagam logins.
+A maioria dos utilitários de PC tradicionais funciona como uma "caixa preta": apagam arquivos sem explicar o motivo e muitas vezes quebram o sistema ou deslogam suas contas.
 
 O **CleanPC** foi projetado com premissas inegociáveis de segurança:
 
@@ -106,12 +109,12 @@ python cleanpc.py --restore <ID_DO_LOTE>
 
 ## 🔨 Como Compilar o Executável Standalone (.exe)
 
-Para compilar um novo `CleanPC.exe` portátil localmente:
+Para compilar um novo `CleanPC.exe` portátil e o arquivo `.zip` localmente:
 ```bash
 python build_exe.py
 # Ou execute o arquivo build.bat com 2 cliques
 ```
-O executável standalone será gerado em `dist/CleanPC.exe`.
+Os arquivos gerados estarão disponíveis na pasta `dist/`.
 
 ---
 
@@ -121,9 +124,3 @@ O CleanPC inclui 24 testes unitários automatizados cobrindo todos os módulos:
 ```bash
 python -m pytest tests/ -v
 ```
-
----
-
-## 🤝 Licença e Contribuições
-
-Desenvolvido para ser uma ferramenta transparente, segura e auditável para a comunidade Windows. Sinta-se à vontade para abrir uma *Issue* ou enviar um *Pull Request* no repositório!
