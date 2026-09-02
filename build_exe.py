@@ -30,20 +30,14 @@ def build_executable():
     print("  🔨 INICIANDO COMPILAÇÃO OTIMIZADA DO CLEANPC (.EXE)")
     print("=" * 65)
 
-    # Coleta diretório do customtkinter
-    try:
-        import customtkinter
-        ctk_path = Path(customtkinter.__file__).parent
-        add_data_ctk = f"--add-data={ctk_path}{os.pathsep}customtkinter"
-    except ImportError:
-        add_data_ctk = "--collect-all=customtkinter"
+    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    BUILD_DIR.mkdir(parents=True, exist_ok=True)
 
     # Argumentos base do PyInstaller com metadados completos
     base_args = [
         sys.executable, "-m", "PyInstaller",
         "--noconfirm",
         "--name=CleanPC",
-        add_data_ctk,
         "--collect-all=rich",
         "--collect-all=customtkinter",
         "--hidden-import=cleanpc_core",
@@ -62,18 +56,36 @@ def build_executable():
 
     # 1. Compilação Standalone Single-File (.exe)
     print("\n[1/2] Compilando executável único (CleanPC.exe)...")
-    cmd_onefile = base_args + ["--onefile", str(BASE_DIR / "cleanpc.py")]
+    workpath_onefile = BUILD_DIR / "onefile"
+    cmd_onefile = base_args + [
+        "--onefile",
+        f"--workpath={workpath_onefile}",
+        f"--distpath={DIST_DIR}",
+        str(BASE_DIR / "cleanpc.py")
+    ]
     res1 = subprocess.run(cmd_onefile, cwd=str(BASE_DIR))
+    if res1.returncode != 0:
+        print("\n❌ Erro na compilação do executável single-file!")
+        sys.exit(res1.returncode)
 
     # 2. Compilação Pasta Portátil (--onedir) e criação de .ZIP limpo
     print("\n[2/2] Gerando pacote portátil limpo sem extração temporária (CleanPC-Portable.zip)...")
     onedir_dist = DIST_DIR / "CleanPC_Portable"
-    cmd_onedir = base_args + [f"--distpath={onedir_dist}", "--onedir", str(BASE_DIR / "cleanpc.py")]
+    workpath_onedir = BUILD_DIR / "onedir"
+    cmd_onedir = base_args + [
+        "--onedir",
+        f"--workpath={workpath_onedir}",
+        f"--distpath={onedir_dist}",
+        str(BASE_DIR / "cleanpc.py")
+    ]
     res2 = subprocess.run(cmd_onedir, cwd=str(BASE_DIR))
+    if res2.returncode != 0:
+        print("\n❌ Erro na compilação da pasta portátil!")
+        sys.exit(res2.returncode)
 
     # Compacta o diretório onedir em ZIP
     portable_folder = onedir_dist / "CleanPC"
-    zip_output = DIST_DIR / "CleanPC-v1.0.0-Portable.zip"
+    zip_output = DIST_DIR / "CleanPC-v1.1.0-Portable.zip"
     if portable_folder.exists():
         print(f"\nCompactando pasta portátil em {zip_output.name}...")
         with zipfile.ZipFile(zip_output, "w", zipfile.ZIP_DEFLATED) as zipf:
