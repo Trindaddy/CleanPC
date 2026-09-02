@@ -51,6 +51,12 @@ class ScanCategory(str, Enum):
     STARTUP_ITEMS = "startup_items"
     SERVICES = "services"
     SYSTEM_OPTIMIZATIONS = "system_optimizations"
+    # Categorias de Celular / Smartphone
+    MOBILE_THUMBNAILS = "mobile_thumbnails"
+    MOBILE_WHATSAPP_STATUS = "mobile_whatsapp_status"
+    MOBILE_APKS = "mobile_apks"
+    MOBILE_ORPHAN_DATA = "mobile_orphan_data"
+    MOBILE_APP_CACHES = "mobile_app_caches"
 
     @property
     def display_name(self) -> str:
@@ -68,7 +74,13 @@ class ScanCategory(str, Enum):
             "duplicates": "Arquivos Duplicados",
             "startup_items": "Itens de Inicialização (Startup)",
             "services": "Serviços do Windows",
-            "system_optimizations": "Otimizações de Sistema (Disco/Memória)"
+            "system_optimizations": "Otimizações de Sistema (Disco/Memória)",
+            # Mobile
+            "mobile_thumbnails": "Celular: Miniaturas da Galeria (.thumbnails)",
+            "mobile_whatsapp_status": "Celular: WhatsApp Status Ocultos (.Statuses)",
+            "mobile_apks": "Celular: Instaladores APK Antigos",
+            "mobile_orphan_data": "Celular: Pastas Órfãs de Apps Desinstalados (Android/data)",
+            "mobile_app_caches": "Celular: Caches de Mídia de Mensageiros (Telegram/TikTok)"
         }
         return names.get(self.value, self.value)
 

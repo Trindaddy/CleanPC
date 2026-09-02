@@ -49,6 +49,7 @@ def build_executable():
         "--hidden-import=cleanpc_core",
         "--hidden-import=cleanpc_scanners",
         "--hidden-import=cleanpc_executors",
+        "--hidden-import=cleanpc_mobile",
         "--hidden-import=cleanpc_reports",
         "--hidden-import=cleanpc_ui"
     ]
